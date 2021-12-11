@@ -14,6 +14,33 @@ void serial::Print(unsigned char data)
     UART_Write(data);
 }
 
+void serial::Print(double data)
+{
+    d_double angka = calculasi_double(data, DEFAULT_NUM_DESIMAL, DEFAULT_PEMBULATAN);
+    Print(angka.bulat);
+    Print(".");
+    Print(angka.pecahan);
+}
+void serial::Print(double data, int num)
+{
+    d_double angka = calculasi_double(data, num, DEFAULT_PEMBULATAN);
+    Print(angka.bulat);
+    Print(".");
+    Print(angka.pecahan);
+}
+void serial::Print(double data, int num, uint8_t bulat)
+{
+    d_double angka = calculasi_double(data, num, bulat);
+    Print(angka.bulat);
+    Print(".");
+    Print(angka.pecahan);
+}
+void serial::Print(int data)
+{
+    char dout[5];
+    itoa(data, dout, 10);
+    Print(dout);
+}
 void serial::Print(const char *data)
 {
     while (*data > 0)
@@ -21,21 +48,67 @@ void serial::Print(const char *data)
 }
 void serial::Println()
 {
-    Print(0x0A);
-    Print(0x0D);
+    Print("\n");
+    Print("\r");
 }
 void serial::Println(const char *data)
 {
     Print(data);
-    Print(0x0A);
-    Print(0x0D);
+    Print("\n");
+    Print("\r");
 }
+
+void serial::Println(double data)
+{
+    Print(data);
+    Println();
+}
+void serial::Println(double data, int num)
+{
+    Print(data, num);
+    Println();
+}
+void serial::Println(double data, int num, uint8_t bulat)
+{
+    Print(data, num, bulat);
+    Println();
+}
+
 uint8_t serial::Read()
 {
     return UART_Read();
 }
+
 // private
 //===================
+
+d_double serial::calculasi_double(double data, int num, uint8_t bulat)
+{
+    d_double angka;
+    int bb = (int)data;
+    double bk = data - bb;
+
+    int number_of_digits = 0;
+    angka.bulat = bb;
+    do
+    {
+        ++number_of_digits;
+        bb /= 10;
+    } while (bb);
+
+    int i = 10;
+    int ac;
+    for (int a = 0; a < num; a++)
+    {
+        ac = (bk * i);
+        i = i * 10;
+    };
+    if (bulat == 1)
+        ac = ac + 1;
+    angka.pecahan = ac;
+    return angka;
+}
+
 void serial::UART_Write(unsigned char data)
 {
     while (!(UCSR0A & (1 << UDRE0)))
