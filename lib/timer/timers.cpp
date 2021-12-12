@@ -1,37 +1,57 @@
 #include "timers.h"
 
-uint64_t count;
-uint64_t tcntval = 65536 - ((0.001 * F_CPU) / 1024);
+// uint64_t count;
+// uint64_t tcntval = 65536 - ((0.001 * F_CPU) / 1024);
 
 void timers::Begin()
 {
-
-    TCCR1A = 0x00; // Normal mode of operation
-    // TCNT1 = 64754;  // over flow after 1 sec calculated at 8 MHZ
-    TCNT1 = tcntval;
+    TCCR1A = 0x00;                        // Normal mode of operation
     TCCR1B = ((1 << CS10) | (1 << CS12)); // 1024 prescaler
-    TIMSK1 |= 1 << TOIE1;                 // Enable timer1 overflow interrupt
-    sei();
+    TCNT1 = TAKS_INTERVAL;
 }
 
-uint64_t timers::Get(uint64_t &d)
+bool timers::Get()
 {
-    count = d;
-    return count;
+    if (count >= 1)
+    {
+        count = 0;
+        return true;
+    }
+    return false;
 }
-uint64_t timers::Get()
+
+bool timers::Get(int delay)
 {
-    TIMSK1 |= 1 << TOIE1;
-    return count;
+    if (count > delay)
+    {
+        count = 0;
+        return true;
+    }
+    return false;
 }
+
 void timers::Clear()
 {
     count = 0;
 }
 
-ISR(TIMER1_OVF_vect)
+void timers::Run()
 {
-    count++;
-    // TCNT1 = 64754; // reset to over flow after 1 sec calculated at 8 MHZ
-    TCNT1 = tcntval;
+    if ((TIFR1 & (1 << TOV1)) == 1)
+    {
+        count++;
+        //===============
+        TCNT1 = TAKS_INTERVAL;
+        TIFR1 |= (1 << TOV1);
+    }
 }
+
+// ISR(TIMER1_OVF_vect)
+// {
+//     count[0]++;
+//     // for (int b = 0; b < numCount; b++)
+//     // {
+//     //     count[b]++;
+//     // }
+//     TCNT1 = TAKS_INTERVAL;
+// }

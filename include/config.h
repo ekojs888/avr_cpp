@@ -2,8 +2,9 @@
 
 #include <stdint.h>
 #include <avr/io.h>
-#include <timers.h>
+// #include <timers.h>
 #include <uart.h>
+#include <util/delay.h>
 
 #ifndef __CONFIG__
 #define __CONFIG__
