@@ -35,6 +35,7 @@ public:
     void Print(double data);
     void Print(double data, int num);
     void Print(double data, int num, uint8_t bulat); // bulat = 0 kebawah, bulat = 1 bulat ke atas
+    void Print(uint16_t data);
     void Println();
     void Println(const char *data);
     void Println(double data);

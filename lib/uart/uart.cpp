@@ -1,5 +1,8 @@
 #include "uart.h"
-
+serial::serial()
+{
+    UART_Init(9600);
+}
 void serial::Begin()
 {
     UART_Init(9600);

@@ -8,6 +8,7 @@
 class timers
 {
 public:
+    timers();
     void Begin();
     bool Get();
     bool Get(int delay);

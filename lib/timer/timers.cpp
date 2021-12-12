@@ -2,7 +2,10 @@
 
 // uint64_t count;
 // uint64_t tcntval = 65536 - ((0.001 * F_CPU) / 1024);
-
+timers::timers()
+{
+    Begin();
+}
 void timers::Begin()
 {
     TCCR1A = 0x00;                        // Normal mode of operation
