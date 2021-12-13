@@ -1,8 +1,8 @@
-#include "pintes.h"
+#include "modelIO.h"
 
-int ReadPin(uint8_t pin)
+int ReadPin(uint8_t pin, uint8_t bit)
 {
-    return ((PIND & (1 << pin)));
+    return ((pin & (1 << bit)));
 }
 void initADC()
 {

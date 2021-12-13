@@ -19,6 +19,9 @@ void Utama()
   SET_BIT(DDRD, PD4);
   CLR_BIT(DDRD, PD2);
   SET_BIT(PORTD, PD2);
+
+  int a = ReadPin(PIND, PD2);
+  Serial.Println(a);
 }
 
 void Run()

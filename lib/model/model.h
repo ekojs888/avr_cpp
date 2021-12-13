@@ -3,12 +3,11 @@
 
 #include <avr/io.h>
 #include <stdint.h>
-// #include <uart.h>
-#include <timers.h>
-#include <taks.h>
 
-#include "pintes.h"
-#include "uart.h"
+#include "timer/timers.h"
+#include "taks/taks.h"
+#include "portio/modelIO.h"
+#include "uart/uart.h"
 
 timers Timer;
 serial Serial;
@@ -26,7 +25,7 @@ int main(void)
 {
     Timer.Begin();
 
-    Serial.Println("===EKOJS999===");
+    Serial.Println("===AVR CODE ejs963===");
 
     Utama();
     while (1)

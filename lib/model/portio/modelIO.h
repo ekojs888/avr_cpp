@@ -1,7 +1,7 @@
 #pragma once
 #include <avr/io.h>
 
-int ReadPin(uint8_t);
+int ReadPin(uint8_t, uint8_t);
 
 void initADC();
 
