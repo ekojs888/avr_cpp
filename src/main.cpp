@@ -12,6 +12,8 @@ int id1, id2, id3, id4;
 
 #endif
 
+// i2c wire;
+
 void Utama()
 {
   initADC();
@@ -33,6 +35,13 @@ void Utama()
 
   byte a = readBit(PIND, PD2);
   Serial.Println(a);
+
+  // wire.Begin();
+  // wire.Start();
+  // wire.Write(0xA0);
+  // wire.Write(0x00);
+  // wire.Write(0xF0);
+  // wire.Stop();
 }
 
 void Run()
