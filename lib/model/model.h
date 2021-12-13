@@ -9,12 +9,13 @@
 #include "portio/modelIO.h"
 #include "uart/uart.h"
 
+#define WordLow(w) ((uint8_t)((w)&0xff))
+#define WordHigh(w) ((uint8_t)((w) >> 8))
+
+typedef uint8_t byte;
+
 timers Timer;
 serial Serial;
-
-#define TOGGLE_BIT(PORT, BIT) PORT ^= (1 << BIT)
-#define SET_BIT(PORT, BIT) PORT |= (1 << BIT)
-#define CLR_BIT(PORT, BIT) PORT &= ~(1 << BIT)
 
 bool COUNT_TIMER_MS;
 

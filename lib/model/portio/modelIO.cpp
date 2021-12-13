@@ -1,9 +1,9 @@
 #include "modelIO.h"
 
-int ReadPin(uint8_t pin, uint8_t bit)
-{
-    return ((pin & (1 << bit)));
-}
+// int ReadPin(uint8_t pin, uint8_t bit)
+// {
+//     return readBit(pin, bit);
+// }
 void initADC()
 {
     ADMUX = (1 << REFS0);
