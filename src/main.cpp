@@ -31,7 +31,7 @@ void Utama()
   // SET_BIT(DDRC, PC0);
   setBit(PORTC, PC0);
 
-  int a = readBit(PIND, PD2);
+  byte a = readBit(PIND, PD2);
   Serial.Println(a);
 }
 
